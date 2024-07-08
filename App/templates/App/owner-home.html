@@ -1,0 +1,85 @@
+{% load static %}
+{% include 'includes/owner-nav.html' %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-xl-3 col-lg-3">
+        <div class="card l-bg-cherry bg-primary">
+            <div class="card-statistic-3 p-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i></div>
+                <div class="mb-4">
+                    <h5 class="card-title mb-0"><a href="" class="text-dark">Cars</a></h5>
+                </div>
+                <div class="row align-items-center mb-2 d-flex">
+                    <div class="col-8">
+                        <h2 class="d-flex align-items-center mb-0">
+                            {{cars}}
+                        </h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3">
+        <div class="card l-bg-blue-dark bg-warning">
+            <div class="card-statistic-3 p-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-book-open"></i></div>
+                <div class="mb-4">
+                    <h5 class="card-title mb-0"><a href="" class="text-dark">Appointments</a></h5>
+                </div>
+                <div class="row align-items-center mb-2 d-flex">
+                    <div class="col-8">
+                        <h2 class="d-flex align-items-center mb-0">
+                            {{appointments}}
+                        </h2>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3">
+        <div class="card l-bg-green-dark bg-success">
+            <div class="card-statistic-3 p-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-clock"></i></div>
+                <div class="mb-4">
+                    <h5 class="card-title mb-0"><a href="" class="text-dark">Notifications</a></h5>
+                </div>
+                <div class="row align-items-center mb-2 d-flex">
+                    <div class="col-8">
+                        <h2 class="d-flex align-items-center mb-0">
+                            {{notifications}}
+                        </h2>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-3">
+        <div class="card l-bg-green-dark bg-info">
+            <div class="card-statistic-3 p-4">
+                <div class="card-icon card-icon-large"><i class="fas fa-clock"></i></div>
+                <div class="mb-4">
+                    <h5 class="card-title mb-0"><a href="" class="text-dark">Inspections</a></h5>
+                </div>
+                <div class="row align-items-center mb-2 d-flex">
+                    <div class="col-8">
+                        <h2 class="d-flex align-items-center mb-0">
+                            {{inspections}}
+                        </h2>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</main>
+{% include 'includes/owner-footer.html' %}

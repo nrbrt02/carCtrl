@@ -1,0 +1,68 @@
+{% load static %}
+{% include 'includes/admin-nav.html' %}
+{% if user.role == "ADMIN" %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">All Inspections</h1>
+    
+  </div>
+  {% if messages %}
+  {% for message in messages %}
+  {% if message.tags == 'error'%}
+  <div class="alert alert-danger" role="alert">
+      {{ message }}.
+  </div>
+  {% else %}
+  <div class="alert alert-success" role="alert">
+      {{ message }}.
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  
+  <table id="myTable" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Owner</th>
+            <th>Date</th>
+            <th>Car</th>
+            <th>Center</th>
+            <th>Result</th>
+            <th>At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for inspection in inspections %}
+    <tr>
+        <td>{{inspection.id}}</td>
+        <td>{{inspection.appointment_id.owner_id.first_name}} {{ inspection.appointment_id.owner_id.last_name }}</td>
+        <td>{{inspection.appointment_id.date}}</td>
+        <td>{{inspection.appointment_id.car_id}}</td>
+        <td>{{inspection.appointment_id.center_id}}</td>
+        <td>{% if inspection.result %} Pass {% else %}Fail {% endif %}</td>
+        <td>{{inspection.created_at}}</td>
+        
+
+    </tr>
+    {% endfor %}
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>#</th>
+            <th>Owner</th>
+            <th>Date</th>
+            <th>Car</th>
+            <th>Center</th>
+            <th>Result</th>
+            <th>At</th>
+        </tr>
+    </tfoot>
+</table>
+</main>
+{% else %}
+    <h1>You have no Permissions</h1>
+    <h3><a href="{% url 'owner-home' %}">Go back</a></h3>
+    {%  endif %}
+{% include 'includes/admin-footer.html' %}

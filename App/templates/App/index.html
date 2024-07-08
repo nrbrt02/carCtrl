@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet">
+
+  <title>Car Controll-Rwanda National Police</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!--
+
+TemplateMo 570 Chain App Dev
+
+https://templatemo.com/tm-570-chain-app-dev
+
+-->
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'assets/css/templatemo-chain-app-dev.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/animated.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+
+</head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="/" class="logo">
+              <img src="{% static 'assets/images/logo1.png' %}" style="width: 30%;" alt="Chain App Dev">
+            </a>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+              <li>
+                <div class="gradient-button"><a id="modal_trigger" href="{% url 'login'%}"><i
+                      class="fa fa-sign-in-alt"></i> Sign
+                    In</a></div>
+              </li>
+            </ul>
+            <a class='menu-trigger'>
+              <span>Menu</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <div class="left-content show-up header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2>Safety Vehicle Inspection</h2>
+                    <p>Welcome to Motor Vehicle Insection Center, We are here to ensure your vehicle is safe on the road. Our mission is to make the scheduling process seamless for you. Please review the details
+                      to prepare for your appointment.</p>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="gradient-button"><a id="modal_trigger" href="{% url 'login' %}"><i class="fa fa-sign-in-alt"></i>
+                        Sign
+                        In</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                <img src="{% static 'assets/images/slider-dec.png' %}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+      {{ message }}.
+    </div>
+  {% endfor %}
+  {% endif %}
+  <div id="services" class="services section">
+    <!-- <div class="container"> -->
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
+          <h4>Amazing <em>Services &amp; Features</em> for you</h4>
+          <img src="{% static 'assets/images/heading-line-dec.png' %}" alt="">
+          <p style="color: black;">Motor vehicles need regular safety inspections to remain on the road. You will be
+            required to inspect your
+            vehicle to ensure that the vehicle meets safety requirements and standards depending on the motor-vehicle
+            use: every six (6) months for commercial moto-vehicles and every year for personal use motor vehicles. <br>
+
+            Rwanda National Police will send you a notice a month before the due date via SMS on conditional that your
+            current personal details are updated. <br>
+
+            Note: the law provides that a brand new vehicle is required to go for technical inspection two (2) years
+            from the time of make. <br>
+
+            However, we recommend that you inspect your car as many times as possible.</p>
+
+          <h5 style="color: black;">You will need:</h5>
+          <ul style="border-left: 4px solid; padding-left: 15px; color: black;">
+            <li style="color: black;">To check if you don't have any unpaid traffic fine</li>
+            <li style="color: black;">To book an appointment and pay a service fee</li>
+            <li style="color: black;">On the day of the inspection, arrive at the testing centre on time. If you are
+              late, you will&nbsp; not
+              be received unless you have justified reasons</li>
+            <li style="color: black;">To present proof payment, appointment, identity (National ID or resident Card),
+              logbook (Carte Jaune),
+              insurance and driving licence</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+  <br>
+  <footer id="newsletter">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="footer-widget">
+            <h4>About Our Company</h4>
+            <div class="logo">
+              <img src="{% static 'assets/images/logo1.png' %}" alt="">
+            </div>
+            <p>Schedule your car's technical control check today and drive worry-free tomorrow! We look forward to
+              ensuring your vehicle's safety.</p>
+          </div>
+        </div>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-5">
+          <h4 style="color: aliceblue;">Leave us a message</h4><br>
+          <form id="search" method="post">
+            {% csrf_token %}
+            <input type="email" name="email" class="email" placeholder="Email Address..." autocomplete="on"
+              required><br><br>
+            <textarea name="message" id="" placeholder="Message..." rows="3" cols="50"></textarea>
+            <button type="submit" class="main-button"><i class="fa fa-envelope"></i> Send</button>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Scripts -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+  <script src="{% static 'assets/js/animation.js' %}"></script>
+  <script src="{% static 'assets/js/imagesloaded.js' %}"></script>
+  <script src="{% static 'assets/js/popup.js' %}"></script>
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+</body>
+
+</html>

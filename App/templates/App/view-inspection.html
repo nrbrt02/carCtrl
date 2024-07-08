@@ -1,0 +1,27 @@
+{% load static %}
+{% include 'includes/owner-nav.html' %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Inspection by {{ inspection.appointment_id.owner_id }}</h1>
+  </div>
+
+  <div class="card">
+    <div class="card-header {% if inspection.result %} bg-success {% else %} bg-danger {% endif %}">
+      Info
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Owner: {{ inspection.appointment_id.owner_id.first_name}} {{ inspection.appointment_id.owner_id.last_name }}({{ inspection.appointment_id.owner_id }})</h5>
+      <p class="card-text">Date: {{ inspection.appointment_id.date }}</p>
+      <p class="card-text">Center: {{ inspection.appointment_id.center_id }}</p>
+      <p class="card-text">Car: {{ inspection.appointment_id.car_id }}</p>
+      <p class="card-text">Type: {{ inspection.appointment_id.type }}</p>
+      <p class="card-text">Status: {{ inspection.appointment_id.status }}</p>
+      <p class="card-text">Payment: {{ inspection.appointment_id.pstatus }}</p>
+      <p class="card-text">Result: {{ inspection.result }}</p>
+      <p class="card-text">Recomendations: {{ inspection.recomendations }}</p>
+      <p class="card-text">Booked: {{ inspection.appointment_id.created_at }}</p>
+      <p class="card-text">Inspected at: {{ inspection.created_at }}</p>
+    </div>
+  </div>
+</main>
+{% include 'includes/owner-footer.html' %}

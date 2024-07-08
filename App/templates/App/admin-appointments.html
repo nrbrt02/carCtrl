@@ -1,0 +1,94 @@
+{% load static %}
+{% include 'includes/admin-nav.html' %}
+{% if user.role == "ADMIN" %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Appointments</h1>
+    
+  </div>
+  {% if messages %}
+  {% for message in messages %}
+  {% if message.tags == 'error'%}
+  <div class="alert alert-danger" role="alert">
+      {{ message }}.
+  </div>
+  {% else %}
+  <div class="alert alert-success" role="alert">
+      {{ message }}.
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  <table id="myTable" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Owner</th>
+            <th>Date</th>
+            <th>Center</th>
+            <th>Car</th>
+            <th>Type</th>
+            <th>Status At</th>
+            <th>Payment</th>
+            <th>Booked At</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Inspection</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+    <tr>
+        <td>{{appointment.id}}</td>
+        <td>{{appointment.owner_id}}</td>
+        <td>{{appointment.date}}</td>
+        <td>{{appointment.center_id.name}}</td>
+        <td>{{appointment.car_id.plate}}</td>
+        <td>{{appointment.type}}</td>
+        <td>{{appointment.status}}</td>
+        <td>{{appointment.pstatus}}</td>
+        <td>{{appointment.created_at | timesince}}</td>
+        <td><a href="{% url 'change-appt-date-admin' appointment.id %}" class="text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                </svg></a></td>
+        <td><a href="{% url 'cancle-appt-admin' appointment.id %}" class="text-danger" onclick="return confirm('Are you sure Cancle Appointment?');"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-octagon-fill" viewBox="0 0 16 16">
+            <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353zm-6.106 4.5L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"/>
+          </svg>
+            
+            </a></td>
+            <td><a href="{% url 'add-inspections' appointment.id %}" class="text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5m8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+                  </svg></a></td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>#</th>
+            <th>Owner</th>
+            <th>Date</th>
+            <th>Center</th>
+            <th>Car</th>
+            <th>Type</th>
+            <th>Status At</th>
+            <th>Payment</th>
+            <th>Booked At</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Inspection</th>
+        </tr>
+    </tfoot>
+</table>
+</main>
+{% else %}
+    <h1>You have no Permissions</h1>
+    <h3><a href="{% url 'owner-home' %}">Go back</a></h3>
+    {%  endif %}
+{% include 'includes/admin-footer.html' %}
