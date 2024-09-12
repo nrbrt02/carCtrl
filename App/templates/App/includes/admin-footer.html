@@ -39,48 +39,27 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: [{% for insp in insp_list %} "{{ insp }}", {% endfor %} ],
-      datasets: [{
-        label: 'INSPECTION RESULT',
-        data: [{% for number in insp_numbers %} "{{ number }}", {% endfor %} ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Inspection Results'
-            }
-        }
-    }
-
+  $(document).ready( function () {
+    $('#myTable').DataTable();
   });
-
-
-
+</script>
+<script>
 const ctx2 = document.getElementById('myChart2');
 
 new Chart(ctx2, {
-  type: 'bar',
+  type: 'pie',
   data: {
     labels: [{% for appt in appt_list %} "{{ appt }}", {% endfor %} ],
     datasets: [{
-      label: 'Appointment Complitions',
       data: [{% for numbers in appt_numbers %} "{{ numbers }}", {% endfor %} ],
-      borderWidth: 2,
+      borderWidth: 1,
     }]
   },
   options: {
       plugins: {
           title: {
               display: true,
-              text: 'All Appointments'
+              text: 'Appointments Statistics'
           }
       }
   }

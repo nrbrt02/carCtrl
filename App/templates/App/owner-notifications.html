@@ -35,7 +35,12 @@
         <tr>
             <td>{{notification.id}}</td>
             <td>Admin- {{notification.message_from}} </td>
-            <td>{{ notification.message }} <span class="badge bg-primary">New</span></td>
+            <td>{{ notification.message }} 
+                {% if not notification.status %}
+                    <span class="badge bg-primary">New</span>
+                {% endif %}
+
+            </td>
             <td>{{notification.created_at | timesince}}</td>
             <td><a href="{% url 'view-notification' notification.id %}" class="text-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">

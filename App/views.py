@@ -82,7 +82,7 @@ def ownerHome(request):
 
 @login_required(login_url='login')
 def owner_notifications(request):
-    notifications = Notification.objects.filter(status=0, message_to = request.user.id)
+    notifications = Notification.objects.filter(message_to = request.user.id)
     context = {'notifications': notifications}
     return render(request, "owner-notifications.html", context)
 
@@ -106,7 +106,7 @@ def owner_cars(request):
             car = form.save(commit=False)
             car.owner_id = owner
             car.save()
-            send_mail("New Car Added", f"From Motor Vehicle Inspection Website \n Your Account has been linked with a new car with the following information\n plate: {car.plate}\n Model: {car.model}\n Make: {car.make}\n Thank you.", settings.EMAIL_HOST_USER, [owner.email])
+            send_mail("New Car Added", f"From AutoMobile Inspection Center \n Your Account has been linked with a new car with the following information\n plate: {car.plate}\n Model: {car.model}\n Make: {car.make}\n Thank you.", settings.EMAIL_HOST_USER, [owner.email])
             messages.success(request, "Car Added To your Account")
             form = CarForm()
         else:
@@ -128,7 +128,7 @@ def owner_cars_edit(request, pk):
             form = CarForm(request.POST, instance=car)
             if form.is_valid():
                 car.save()
-                send_mail("Car Edited", f"From Car Inspection Website \n A car in your Account has been Updated from \nplate: {car.plate}\n Model: {car.model}\n Make: {car.make}\n  to Plate: {form.cleaned_data['plate']}\n Model:{form.cleaned_data['model']}\n Make: {form.cleaned_data['make']}\n Thank you.", settings.EMAIL_HOST_USER, [owner.email])
+                send_mail("Car Edited", f"From AutoMobile Inspection Center \n A car in your Account has been Updated from \nplate: {car.plate}\n Model: {car.model}\n Make: {car.make}\n  to Plate: {form.cleaned_data['plate']}\n Model:{form.cleaned_data['model']}\n Make: {form.cleaned_data['make']}\n Thank you.", settings.EMAIL_HOST_USER, [owner.email])
                 messages.success(request, "Car Updated")
                 return redirect('owner-cars')
             else:
@@ -144,7 +144,7 @@ def owner_cars_delete(request, pk):
     car = Car.objects.get(id=pk)
     if request.user.id == car.owner_id.id:
         car.delete()
-        send_mail("Car Deleted", f"From Car Inspection Website \n A car with n plate: {car.plate}\n Model: {car.model}\n Make: {car.make}\n has been unlinked with our account Thank you.", settings.EMAIL_HOST_USER, [request.user.email])
+        send_mail("Car Deleted", f"From AutoMobile Inspection Center \n A car with n plate: {car.plate}\n Model: {car.model}\n Make: {car.make}\n has been unlinked with our account Thank you.", settings.EMAIL_HOST_USER, [request.user.email])
         messages.success(request, f"Car with Plate {car.plate} Deleted Successfuly")
     else:
         messages.error(request, "You dont have permission to perform this action")
@@ -181,7 +181,7 @@ def owner_appointment(request):
                 appt.owner_id = owner  # Ensure you assign the correct owner instance
                 appt.save()
                 appt_id = appt.id
-                send_mail("New Appointment Booked", f"From Car Inspection Website- Appointments \n Your Account has booked an inspection for a car with informations:\nappointment id: {appt_id}\nplate: {appt.car_id.plate}\n Model: {appt.car_id.model}\n Make: {appt.car_id.make}\n Here are the information about your appointment\n Canter:{appt.center_id}\n Date:{appt.date}\nType:{appt.type}\n Make sure to note miss the appointment\n Thank you.", settings.EMAIL_HOST_USER, [request.user.email])
+                send_mail("New Appointment Booked", f"From AutoMobile Inspection Center- Appointments \n Your Account has booked an inspection for a car with informations:\nappointment id: {appt_id}\nplate: {appt.car_id.plate}\n Model: {appt.car_id.model}\n Make: {appt.car_id.make}\n Here are the information about your appointment\n Canter:{appt.center_id}\n Date:{appt.date}\nType:{appt.type}\n Make sure to note miss the appointment\n Thank you.", settings.EMAIL_HOST_USER, [request.user.email])
                 messages.success(request, "Appointment started, proceed with payment")
                 form = AppointmentForm(user=request.user)
                 return redirect('checkout', pk=appt_id) 
@@ -199,13 +199,13 @@ def change_appt_date(request, pk):
     appts = Appointment.objects.filter(owner_id = request.user.id)
     form = AppointmentForm(user=request.user)
     if request.user.id == appt.owner_id.id:
-        appts = Appointment.objects.all()
+        # appts = Appointment.objects.all()
         form = AppointmentForm(instance=appt, user=request.user)
         if request.method == 'POST':
             form = AppointmentForm(request.POST, instance=appt, user=request.user)
             if form.is_valid():
                 form.save()
-                send_mail("Appointment Date Changed", f"From Car Inspection Website- Appointments \n The Date for an appointment in your Account has been  change from {appt.date} to {form.cleaned_data['date']}for inspection f a car with informations:\nplate: {appt.car_id.plate}\n Model: {appt.car_id.model}\n Make: {appt.car_id.make}\n Here are the new information about your appointment\n Canter:{form.cleaned_data['center_id']}\n Date:{form.cleaned_data['date']}\nType:{form.cleaned_data['date']}\n Make sure to note miss the appointment\n Thank you.", settings.EMAIL_HOST_USER, [request.user.email])
+                send_mail("Appointment Date Changed", f"From AutoMobile Inspection Center- Appointments \n The Date for an appointment in your Account has been  change from {appt.date} to {form.cleaned_data['date']}for inspection f a car with informations:\nplate: {appt.car_id.plate}\n Model: {appt.car_id.model}\n Make: {appt.car_id.make}\n Here are the new information about your appointment\n Canter:{form.cleaned_data['center_id']}\n Date:{form.cleaned_data['date']}\nType:{form.cleaned_data['date']}\n Make sure to note miss the appointment\n Thank you.", settings.EMAIL_HOST_USER, [request.user.email])
                 messages.success(request, "Appointment Updated")
                 return redirect("owner-appointment")
             else:
@@ -223,7 +223,7 @@ def cancle_appt(request, pk):
     if request.user.id == appt.owner_id.id:
         appt.status = "cancled"
         appt.save()
-        send_mail("Appointment Canceld", f"From Car Inspection Website- Appointments \n Ampointment which was supposed to take place at {appt.date}\nwas cancled Thank you.", settings.EMAIL_HOST_USER, [request.user.email])
+        send_mail("Appointment Canceld", f"From AutoMobile Inspection Center- Appointments \n Ampointment which was supposed to take place at {appt.date}\nwas cancled Thank you.", settings.EMAIL_HOST_USER, [request.user.email])
         messages.success(request, "Appointment Cancled successfuly")
     else:
         messages.error(request, f"You have No permissions to perform this action")
@@ -261,16 +261,22 @@ def adminHome(request):
     insp_list = ['Pass', 'Fail']
     insp_numbers = [pas_insp, fail_insp]
 
+    all_apt = Appointment.objects.all().count()
     comp_appt = Appointment.objects.filter(status="complite").count()
     pend_appt = Appointment.objects.filter(status="pendig").count()
     canc_appt = Appointment.objects.filter(status="cancled").count()
     pay_appt = Appointment.objects.filter(pstatus=True).count()
     nopay_appt = Appointment.objects.filter(pstatus=False).count()
 
-    appt_list = ["Complited", "Pending", "Cancled", "Payed", "Not Payed"]
-    appt_numbers = [comp_appt, pend_appt, canc_appt, pay_appt, nopay_appt]
+    appt_list = ["All", "Inspected", "Failed", "Passed", "Upcoming","Cancled"]
+    appt_numbers = [all_apt, inspections, fail_insp, pas_insp, pend_appt, canc_appt]
 
     context = {'centers': center, 'appointments': appointments, 'inspections': inspections, 'insp_list': insp_list, 'insp_numbers': insp_numbers, "appt_list": appt_list, "appt_numbers": appt_numbers} 
+
+    # appt_list = ["Complited", "Pending", "Cancled", "Payed", "Not Payed"]
+    # appt_numbers = [comp_appt, pend_appt, canc_appt, pay_appt, nopay_appt]
+
+    # context = {'centers': center, 'appointments': appointments, 'inspections': inspections, 'insp_list': insp_list, 'insp_numbers': insp_numbers, "appt_list": appt_list, "appt_numbers": appt_numbers} 
     return render(request, "admin-home.html", context)
 
 
@@ -337,7 +343,7 @@ def change_appt_date_admin(request, pk):
             if datetime.date.today() >= apt.date:
                 messages.error(request, f"Invalid date. Make sure to pick a date in the future and no weekends")
             else:
-                send_mail("Appointment Changed", f"From Car Inspection Website- An appointment you had on {appt.date} of vehicle inspection has been changed to a new date{apt.date} by administrator\n Thank you.", settings.EMAIL_HOST_USER, [email])
+                send_mail("Appointment Changed", f"From AutoMobile Inspection Center- An appointment you had on {appt.date} of vehicle inspection has been changed to a new date{apt.date} by administrator\n Thank you.", settings.EMAIL_HOST_USER, [email])
                 messages.success(request, "Appointment Updated")
                 return redirect("admin-appointment")
         else:
@@ -353,7 +359,7 @@ def cancle_appt_admin(request, pk):
     appt = Appointment.objects.get(id=pk)
     appt.status = "cancled"
     appt.save()
-    send_mail("Appointment Canceld by Admin", f"From Car Inspection Website- Appointments \n Appointment which was supposed to take place at {appt.date}\nwas cancled by admin Thank you.", settings.EMAIL_HOST_USER, [appt.owner_id.email])
+    send_mail("Appointment Canceld by Admin", f"From AutoMobile Inspection Center- Appointments \n Appointment which was supposed to take place at {appt.date}\nwas cancled by admin Thank you.", settings.EMAIL_HOST_USER, [appt.owner_id.email])
     messages.success(request, "Appointment Cancled successfuly")
     return redirect('admin-appointment')
 
@@ -373,8 +379,8 @@ def add_inspections(request, pk):
             insp = form.save(commit=False)
             insp.appointment_id = appt
             insp.save()
-            send_mail("Inspection Results", f"From Car Inspection Website- Inspections \n from an inspection done on {appt.date} from the results here is your inspections results\n Result: {form.cleaned_data['result']}\n Recomendations: {form.cleaned_data['recomendations']}\n We look forward on our next inspection stay safe\n Thank you", settings.EMAIL_HOST_USER, [appt.owner_id.email])
-            Appointment.objects.filter(pk=pk).update(status="completed")
+            send_mail("Inspection Results", f"From AutoMobile Inspection Center- Inspections \n from an inspection done on {appt.date} from the results here is your inspections results\n Result: {form.cleaned_data['result']}\n Recomendations: {form.cleaned_data['recomendations']}\n We look forward on our next inspection stay safe\n Thank you", settings.EMAIL_HOST_USER, [appt.owner_id.email])
+            Appointment.objects.filter(pk=pk).update(status="complite")
             messages.success(request, "Inspection Added")
             return redirect("admin-appointment")
     else:
@@ -401,8 +407,8 @@ def send_notifications(request, pk):
             message.message_from = request.user
             message.save()
             # responseData = sms.send_message({"from": "CarCtrl - Message from Admin", "to": to_phone,"text": message.message })
-            if responseData["messages"][0]["status"] == "0":
-                print("Message sent successfully.")
+            # if responseData["messages"][0]["status"] == "0":
+            #     print("Message sent successfully.")
             send_mail("Inspection Message from Admin", f"Admin {request.user.username} sent you the following message \n{form.cleaned_data['message']}\n Thank you", settings.EMAIL_HOST_USER, [user_to.email])
             messages.success(request, "Notification Sent")
             return redirect("notofications")
